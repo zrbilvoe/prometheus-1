@@ -217,16 +217,20 @@ type serversetEndpoint struct {
 }
 
 func parseServersetMember(data []byte, path string) (model.LabelSet, error) {
-	member := serversetMember{}
-
+ 	member := serversetMember{}
+	fmt.Println(string(data[:]))
 	if err := json.Unmarshal(data, &member); err != nil {
+		fmt.Println(err)
 		return nil, fmt.Errorf("error unmarshaling serverset member %q: %s", path, err)
 	}
 
 	labels := model.LabelSet{}
 	labels[serversetPathLabel] = model.LabelValue(path)
+	//labels[model.AddressLabel] = model.LabelValue(
+	//	net.JoinHostPort(member.ServiceEndpoint.Host, fmt.Sprintf("%d", member.ServiceEndpoint.Port)))
+
 	labels[model.AddressLabel] = model.LabelValue(
-		net.JoinHostPort(member.ServiceEndpoint.Host, fmt.Sprintf("%d", member.ServiceEndpoint.Port)))
+		member.ServiceEndpoint.Host)
 
 	labels[serversetEndpointLabelPrefix+"_host"] = model.LabelValue(member.ServiceEndpoint.Host)
 	labels[serversetEndpointLabelPrefix+"_port"] = model.LabelValue(fmt.Sprintf("%d", member.ServiceEndpoint.Port))
