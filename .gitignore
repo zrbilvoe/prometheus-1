@@ -15,7 +15,7 @@ benchmark.txt
 /.build
 /.release
 /.tarballs
-
+/.idea
 !/circle.yml
 !/.travis.yml
 !/.promu.yml
