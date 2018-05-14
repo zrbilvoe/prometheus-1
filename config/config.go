@@ -438,9 +438,10 @@ func (c *AlertmanagerConfig) UnmarshalYAML(unmarshal func(interface{}) error) er
 // CheckTargetAddress checks if target address is valid.
 func CheckTargetAddress(address model.LabelValue) error {
 	// For now check for a URL, we may want to expand this later.
-	if strings.Contains(string(address), "/") {
-		return fmt.Errorf("%q is not a valid hostname", address)
-	}
+	// zhilian
+	//if strings.Contains(string(address), "/") {
+	//	return fmt.Errorf("%q is not a valid hostname", address)
+	//}
 	return nil
 }
 
