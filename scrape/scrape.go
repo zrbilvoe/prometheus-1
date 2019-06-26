@@ -44,6 +44,7 @@ import (
 	"github.com/prometheus/prometheus/pkg/timestamp"
 	"github.com/prometheus/prometheus/pkg/value"
 	"github.com/prometheus/prometheus/storage"
+	"strings"
 )
 
 var (
@@ -528,7 +529,10 @@ var userAgentHeader = fmt.Sprintf("Prometheus/%s", version.Version)
 
 func (s *targetScraper) scrape(ctx context.Context, w io.Writer) (string, error) {
 	if s.req == nil {
-		req, err := http.NewRequest("GET", s.URL().String(), nil)
+		zhaopin_url := strings.Replace(s.URL().String(), "%2F", "/", -1)
+		fmt.Println(zhaopin_url)
+		req, err := http.NewRequest("GET", zhaopin_url, nil)
+		// req, err := http.NewRequest("GET", s.URL().String(), nil)
 		if err != nil {
 			return "", err
 		}
