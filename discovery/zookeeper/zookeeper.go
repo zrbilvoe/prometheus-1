@@ -268,6 +268,7 @@ func parseNerveMember(data []byte, path string) (model.LabelSet, error) {
 	labels := model.LabelSet{}
 	labels[nervePathLabel] = model.LabelValue(path)
 	labels[model.AddressLabel] = model.LabelValue(
+		//net.JoinHostPort(member.Host, fmt.Sprintf("%d", member.Port))) 此处要修改去掉目标[]
 		net.JoinHostPort(member.Host, fmt.Sprintf("%d", member.Port)))
 
 	labels[nerveEndpointLabelPrefix+"_host"] = model.LabelValue(member.Host)
