@@ -483,11 +483,18 @@ func (srv *consulService) watch(ctx context.Context, ch chan<- []*targetgroup.Gr
 		// If the service address is not empty it should be used instead of the node address
 		// since the service may be registered remotely through a different node
 		var addr string
-		if node.ServiceAddress != "" {
-			addr = net.JoinHostPort(node.ServiceAddress, fmt.Sprintf("%d", node.ServicePort))
-		} else {
-			addr = net.JoinHostPort(node.Address, fmt.Sprintf("%d", node.ServicePort))
-		}
+		//if node.ServiceAddress != "" {
+		//	addr = net.JoinHostPort(node.ServiceAddress, fmt.Sprintf("%d", node.ServicePort))
+		//} else {
+		//	addr = net.JoinHostPort(node.Address, fmt.Sprintf("%d", node.ServicePort))
+		//}
+
+                if ( node.ServiceAddress != "" && node.ServicePort == 777 ) {
+                        addr = net.JoinHostPortZhiLxxx(node.ServiceAddress, fmt.Sprintf("%d", node.ServicePort))
+                } else {
+                        //addr = net.JoinHostPort(node.Address, fmt.Sprintf("%d", node.ServicePort))
+                        addr = net.JoinHostPort(node.ServiceAddress, fmt.Sprintf("%d", node.ServicePort))
+                }
 
 		labels := model.LabelSet{
 			model.AddressLabel:  model.LabelValue(addr),
